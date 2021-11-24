@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% include "_includes/_fonts.njk" %}
+    {% include "_includes/_css.njk" %}
+    {% include "_includes/_seo.njk" %}
+    {% include "_includes/_open_graph.njk" %}
+    {% include "_includes/_icons.njk" %}
+    <script defer src="/scripts/main.js"></script>
+  </head>
+  <body class="{{ 'debug-screens' if site[currentEnv].debug }}">
+   {{ content | safe }}
+  </body>
+</html>

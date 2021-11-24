@@ -1,0 +1,29 @@
+{
+  "main": [
+    {
+      "name": "home",
+      "description": "",
+      "url": "/",
+      "showInMainNav": false,
+      "width": 48
+    },
+    
+    {
+      "name": "About us",
+      "description": "Learn about us",
+      "url": "/about-us/",
+      "showInMainNav": true,
+      "showInFooter": false,
+      "width": 48
+    },
+   
+    {
+      "name": "Contact",
+      "description": "Get in touch",
+      "url": "/contact/",
+      "showInMainNav": true,
+      "showInFooter": true,
+      "width": 48
+    }
+  ]
+}

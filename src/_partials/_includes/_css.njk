@@ -1,0 +1,12 @@
+{%- set var = false -%}
+{%- if site[currentEnv].inlineCSS  -%}
+  {# Inline CSS only gets created on server start or build, not on HMR/Browsersync changes. #}
+  {%- set css -%}
+  {%- include "../../styles/compiled.css" -%}
+  {%- endset -%}
+  <style>
+    {{css | safe}}
+  </style>
+{%- else -%}
+  <link rel="stylesheet" href="/styles/compiled.css">
+{%- endif -%}

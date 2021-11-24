@@ -1,0 +1,55 @@
+<meta name="description" content="{{ description or metadata.description}}">
+    <link rel="canonical" href="{{ canonical  or site[currentEnv].baseURL + page.url }}">
+    {# Indexing 
+  noindex in front matter can be: 
+    true — page will not be indexed
+    false — page will be indexed 
+    [value] — Any of the standard Robots values (see below) 
+  If no value is given for 'noindex' then assume the page will be indexed. 
+#}
+{%- set noIndexValue = noindex -%}
+{%- set noIndexValue = 'noindex' if noindex == true else noIndexValue -%}
+{%- set noIndexValue = 'index' if noindex == undefined else noIndexValue -%}
+{%- set noIndexValue =  'index' if noindex == false else noIndexValue -%}
+{# Turn indexing on/off based on the enviroment #}
+{%- if site[currentEnv].allowIndexing -%}
+  <meta name="robots" content="{{ noIndexValue }}">
+{%- else  -%}
+    <meta name="robots" content="noindex">
+    <meta name="robotsOnProductionWillBe" content="{{ noIndexValue }}">
+{%- endif -%}
+{% set ldJSON %}{
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{site.name}}",
+      "legalName": "{{ site.legalName }}",
+      "url": "{{site[currentEnv].baseURL}}",
+      "logo": "{{site.logo}}",
+      "foundingDate": "{{site.foundingDate}}",
+      "address": {
+      "@type": "{{site.address.type}}", 
+      "streetAddress": "{{site.address.streetAddress}}", 
+      "addressRegion": "{{site.address.addressRegion}}", 
+      "postalCode": "{{site.address.postalCode}}", 
+      "addressCountry": "{{site.address.addressCountry}}" 
+      },
+      "sameAs": [
+        "{{ site.twitterURL }}", 
+        "{{ site.linkedInURL }}", 
+        "{{ site[currentEnv].baseURL }}"]
+    }{% endset %}
+    <script {{ site[utils.currentEnv].baseUrl }} type="application/ld+json">
+    {{ldJSON | safe }}
+    </script>
+    {#- Robots values
+  Noindex: Tells a search engine not to index a page.
+  Index: Tells a search engine to index a page. Note that you don’t need to add this meta tag; it’s the default.
+  Follow: Even if the page isn’t indexed, the crawler should follow all the links on a page and pass equity to the linked pages.
+  Nofollow: Tells a crawler not to follow any links on a page or pass along any link equity.
+  Noimageindex: Tells a crawler not to index any images on a page.
+  None: Equivalent to using both the noindex and nofollow tags simultaneously.
+  Noarchive: Search engines should not show a cached link to this page on a SERP.
+  Nocache: Same as noarchive, but only used by Internet Explorer and <Firefox class=""> </Firefox>
+  Nosnippet: Tells a search engine not to show a snippet of this page (i.e. meta description) of this page on a SERP.
+  Noodyp/noydir [OBSOLETE]: Prevents search engines from using a page’s DMOZ description as the SERP snippet for this page. However, DMOZ was retired in early 2017, making this tag obsolete.
+  Unavailable_after: Search engines should no longer index this page after a particular date.#}

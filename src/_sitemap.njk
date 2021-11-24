@@ -1,0 +1,17 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {%- for page in collections.all -%}
+  {#- Include the page in the sitemap unless 'sitemap' in frontmatter is set to false -#}
+    {% if page.data.sitemap !== false   %}
+      <url>
+        <loc>{{ site[utils.currentEnv].baseURL }}{{ page.url | url }}</loc>
+        <lastmod>{{ page.date.toISOString() }}</lastmod>
+        <changefreq>{{ page.data.changeFreq if page.data.changeFreq else "monthly" }}</changefreq>
+      </url>
+    {% endif %}
+  {%- endfor -%}
+</urlset>

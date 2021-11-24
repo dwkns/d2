@@ -1,0 +1,17 @@
+---
+permalink: /_headers
+eleventyExcludeFromCollections: true
+---
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: default-src 'self' 'unsafe-inline' 'unsafe-eval'
+  X-XSS-Protection: 1; mode=block
+# Long cache time on the fonts
+/fonts/IBMPlexSans.var.latin-subset.woff2
+  cache-control: public
+  cache-control: max-age=31536000
+  cache-control: immutable
+# Example custom header on about page
+/about-us/*
+  custom-header: custom-value

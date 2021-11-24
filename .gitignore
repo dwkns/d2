@@ -1,0 +1,7 @@
+dist
+node_modules
+node_modules.nosync
+.env
+yarn-error.log
+# Local Netlify folder
+.netlify
