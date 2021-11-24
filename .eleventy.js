@@ -1,5 +1,10 @@
 const lodash = require("lodash");
 const { DateTime } = require("luxon");
+const htmlmin = require("html-minifier");
+const siteData = require("./src/_data/site.js")
+const currentEnv = require("./src/_data/currentEnv.js")
+// const siteDataString = fs.readFileSync(siteDataFile, "utf8")
+// const siteData = JSON.parse(siteDataString)
 
 module.exports = (eleventyConfig) => {
 
@@ -31,10 +36,10 @@ module.exports = (eleventyConfig) => {
 
   eleventyConfig.setBrowserSyncConfig({
     middleware: function (req, res, next) {
-        res.setHeader('Access-Control-Allow-Origin', '*sfsdf');
-        next();
-      }
-    });
+      res.setHeader('Access-Control-Allow-Origin', '*sfsdf');
+      next();
+    }
+  });
 
   eleventyConfig.addPassthroughCopy({
     'src/fonts': './fonts',
@@ -43,6 +48,23 @@ module.exports = (eleventyConfig) => {
   });
 
   eleventyConfig.setDataDeepMerge(true);
+
+  // compress the html & inline CSS & JS
+  eleventyConfig.addTransform("htmlmin", function (content, outputPath) {
+    const compressHTML = siteData[currentEnv].minifyInline_HTML_JS_CSS
+    if (!compressHTML) { return content }
+    if (outputPath && outputPath.endsWith(".html")) {
+      let minified = htmlmin.minify(content, {
+        useShortDoctype: true,
+        removeComments: true,
+        collapseWhitespace: true,
+        minifyJS: true,
+        minifyCSS: true,
+      });
+      return minified;
+    }
+    return content;
+  });
 
   return {
     dir: {
@@ -54,3 +76,7 @@ module.exports = (eleventyConfig) => {
     },
   };
 };
+
+
+// https://marketing.under2.global/acton/fs/blocks/showLandingPage/a/44267/p/p-0001/t/page/fm/0
+// https://marketing.under2.global/acton/fs/blocks/showLandingPage/a/44267/p/p-0001/t/page/fm/0

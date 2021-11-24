@@ -32,6 +32,7 @@ let siteData = {
     allowRobots: true,
     minifyCSS: false,
     inlineCSS: false,
+    minifyInline_HTML_JS_CSS: false,
   },
   staging: {
     domain: 'staging.yoursite.com',
@@ -42,6 +43,7 @@ let siteData = {
     allowRobots: true,
     minifyCSS: false,
     inlineCSS: false,
+    minifyInline_HTML_JS_CSS: false,
   },
   production: {
     domain: 'yoursite.com',
@@ -52,6 +54,7 @@ let siteData = {
     allowRobots: true,
     minifyCSS: true,
     inlineCSS: true,
+    minifyInline_HTML_JS_CSS: false,
   },
   currentYear: new Date().getFullYear(),
   currentDate: new Date(),
